@@ -9,6 +9,7 @@ import org.hibernate.query.NativeQuery;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -24,6 +25,7 @@ public class Main {
             System.out.println("Press 3 for Search Employee");
             System.out.println("Press 4 for Update Information");
             System.out.println("Press 5 for Remove Employee");
+            System.out.println("Press 6 for display employees whose salary is greater than average salary");
             System.out.println("Enter Your Choice ");
             choice = sc.nextInt();
 
@@ -219,6 +221,20 @@ public class Main {
                 catch (NoResultException ob)
                 {
                     System.out.println("No Employee found on that SNO ");
+                }
+                session.close();
+            }
+            else if(choice == 6)
+            {
+                Session session = sessionFactory.openSession();
+                NativeQuery query = session.createNativeQuery("select avg(salary) from employee");
+                Object data = query.getSingleResult();
+                System.out.println("Average Salary - "+data);
+                query = session.createNativeQuery("select * from employee where salary>(select avg(salary) from employee)",Employee.class);
+                List<Employee> data2 = query.getResultList();
+                for(Employee item : data2)
+                {
+                    System.out.println(item.toString());
                 }
                 session.close();
             }
