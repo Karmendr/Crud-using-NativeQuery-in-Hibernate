@@ -10,15 +10,16 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int sno;
-    private String name;
+    private String name,city;
     private int age,salary;
 
     public Employee() {
     }
 
-    public Employee(int sno, String name, int age, int salary) {
+    public Employee(int sno, String name, String city, int age, int salary) {
         this.sno = sno;
         this.name = name;
+        this.city = city;
         this.age = age;
         this.salary = salary;
     }
@@ -37,6 +38,14 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getAge() {
@@ -60,6 +69,7 @@ public class Employee {
         return "Employee{" +
                 "sno=" + sno +
                 ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
                 ", age=" + age +
                 ", salary=" + salary +
                 '}';

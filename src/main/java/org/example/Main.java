@@ -26,6 +26,9 @@ public class Main {
             System.out.println("Press 4 for Update Information");
             System.out.println("Press 5 for Remove Employee");
             System.out.println("Press 6 for display employees whose salary is greater than average salary");
+            System.out.println("Press 7 for display employees whose salary is less than average salary");
+            System.out.println("Press 8 for get total salary city wise ");
+            System.out.println("Press 9 for display average age of employee city wise ");
             System.out.println("Enter Your Choice ");
             choice = sc.nextInt();
 
@@ -168,6 +171,7 @@ public class Main {
                     System.out.println("Press 1 for change Name ");
                     System.out.println("Press 2 for change Age ");
                     System.out.println("Press 3 for change Salary ");
+                    System.out.println("Press 4 for change City ");
                     System.out.println("Enter your choice ");
                     int choice2 = sc.nextInt();
 
@@ -186,10 +190,16 @@ public class Main {
                         System.out.println("Enter new Salary ");
                         employee.setSalary(sc.nextInt());
                     }
-                    query = session.createNativeQuery("update employee set name=:name,age=:age,salary=:salary where sno=:sno", Employee.class);
+                    else if(choice2 == 4)
+                    {
+                        System.out.println("Enter new City ");
+                        employee.setCity(sc.next());
+                    }
+                    query = session.createNativeQuery("update employee set name=:name,age=:age,salary=:salary,city=:city where sno=:sno", Employee.class);
                     query.setParameter("name",employee.getName());
                     query.setParameter("age",employee.getAge());
                     query.setParameter("salary",employee.getSalary());
+                    query.setParameter("city",employee.getCity());
                     query.setParameter("sno",employee.getSno());
                     query.executeUpdate();
                     transaction.commit();
@@ -235,6 +245,44 @@ public class Main {
                 for(Employee item : data2)
                 {
                     System.out.println(item.toString());
+                }
+                session.close();
+            }
+            else if(choice == 7)
+            {
+                Session session = sessionFactory.openSession();
+                NativeQuery query = session.createNativeQuery("select avg(salary) from employee");
+                Object data = query.getSingleResult();
+                System.out.println("Average salary - "+data);
+                query = session.createNativeQuery("select * from employee where salary<(select avg(salary) from employee)",Employee.class);
+                List<Employee> data2 = query.getResultList();
+                for(Employee item : data2)
+                {
+                    System.out.println(item.toString());
+                }
+                session.close();
+            }
+            else if(choice == 8)
+            {
+                Session session = sessionFactory.openSession();
+                NativeQuery query = session.createNativeQuery("select city,sum(salary) from employee group by city");
+                List<Object[]> data = query.getResultList();
+                System.out.println("City\tTotal Salary");
+                for(Object item[] : data)
+                {
+                    System.out.println(item[0]+"\t"+item[1]);
+                }
+                session.close();
+            }
+            else if(choice == 9)
+            {
+                Session session = sessionFactory.openSession();
+                NativeQuery query = session.createNativeQuery("select city,avg(age) from employee group by city");
+                List<Object[]> data = query.getResultList();
+
+                for(Object item[] : data)
+                {
+                    System.out.println(item[0]+"\t"+item[1]);
                 }
                 session.close();
             }
