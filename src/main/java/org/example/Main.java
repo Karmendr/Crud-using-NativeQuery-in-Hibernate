@@ -29,6 +29,7 @@ public class Main {
             System.out.println("Press 7 for display employees whose salary is less than average salary");
             System.out.println("Press 8 for get total salary city wise ");
             System.out.println("Press 9 for display average age of employee city wise ");
+            System.out.println("Press 10 for arrange data ");
             System.out.println("Enter Your Choice ");
             choice = sc.nextInt();
 
@@ -285,6 +286,140 @@ public class Main {
                     System.out.println(item[0]+"\t"+item[1]);
                 }
                 session.close();
+            }
+            else if(choice == 10)
+            {
+                System.out.println("Press 1 for sort by Name ");
+                System.out.println("Press 2 for sort by Age ");
+                System.out.println("Press 3 for sort by Salary ");
+                System.out.println("Press 4 for sort by SNO");
+                System.out.println("Enter your choice ");
+                int choice2 = sc.nextInt();
+
+                if(choice2 == 1)
+                {
+                    System.out.println("Press 1 for sort by Name in ascending order ");
+                    System.out.println("Press 2 for sort by Name in descending order ");
+                    System.out.println("Enter your choice ");
+                    int choice3 = sc.nextInt();
+
+                    if(choice3 == 1)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by name", Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+
+                        session.close();
+                    }
+                    else if(choice3 == 2)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by name desc",Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+                        session.close();
+                    }
+                }
+                else if(choice2 == 2)
+                {
+                    System.out.println("Press 1 for sort by Age in ascending order ");
+                    System.out.println("Press 2 for sort by Age in descending order ");
+                    System.out.println("Enter your choice ");
+                    int choice3 = sc.nextInt();
+
+                    if(choice3 == 1)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by age", Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+
+                        session.close();
+                    }
+                    else if(choice3 == 2)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by age desc",Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+                        session.close();
+                    }
+                }
+                else if(choice2 == 3)
+                {
+                    System.out.println("Press 1 for sort by Salary in ascending order ");
+                    System.out.println("Press 2 for sort by Salary in descending order ");
+                    System.out.println("Enter your choice ");
+                    int choice3 = sc.nextInt();
+
+                    if(choice3 == 1)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by salary", Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+
+                        session.close();
+                    }
+                    else if(choice3 == 2)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by salary desc",Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+                        session.close();
+                    }
+                }
+                else if(choice2 == 4)
+                {
+                    System.out.println("Press 1 for sort by SNO in ascending order ");
+                    System.out.println("Press 2 for sort by SNO in descending order ");
+                    System.out.println("Enter your choice ");
+                    int choice3 = sc.nextInt();
+
+                    if(choice3 == 1)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by sno", Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+
+                        session.close();
+                    }
+                    else if(choice3 == 2)
+                    {
+                        Session session = sessionFactory.openSession();
+                        NativeQuery query = session.createNativeQuery("select * from employee order by sno desc",Employee.class);
+                        List<Employee> data = query.getResultList();
+                        for(Employee item : data)
+                        {
+                            System.out.println(item.toString());
+                        }
+                        session.close();
+                    }
+                }
             }
         }
     }
